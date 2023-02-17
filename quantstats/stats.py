@@ -224,7 +224,7 @@ def avg_loss(returns, aggregate=None, compounded=True, prepare_returns=True):
     return returns[returns < 0].dropna().mean()
 
 
-def volatility(returns, periods=252, annualize=True, prepare_returns=True):
+def volatility(returns, periods=12, annualize=True, prepare_returns=True):
     """Calculates the volatility of returns for a period"""
     if prepare_returns:
         returns = _utils._prepare_returns(returns)
@@ -235,7 +235,7 @@ def volatility(returns, periods=252, annualize=True, prepare_returns=True):
     return std
 
 
-def rolling_volatility(returns, rolling_period=126, periods_per_year=252,
+def rolling_volatility(returns, rolling_period=6, periods_per_year=12,
                        prepare_returns=True):
     if prepare_returns:
         returns = _utils._prepare_returns(returns, rolling_period)
@@ -243,7 +243,7 @@ def rolling_volatility(returns, rolling_period=126, periods_per_year=252,
     return returns.rolling(rolling_period).std() * _np.sqrt(periods_per_year)
 
 
-def implied_volatility(returns, periods=252, annualize=True):
+def implied_volatility(returns, periods=12, annualize=True):
     """Calculates the implied volatility of returns for a period"""
     logret = _utils.log_returns(returns)
     if annualize:
